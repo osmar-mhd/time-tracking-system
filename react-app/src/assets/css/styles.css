@@ -1,0 +1,96 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f0f4f8;
+    color: #333333;
+}
+
+.App {
+    background-image: linear-gradient(to right, #171235e7, #110821);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Media queries */
+@media (min-width: 910px) {
+    main {
+        margin-left: 4em;
+    }
+}
+
+@media (max-width: 910px) {
+    main {
+        margin-top: 4em;
+    }
+}
+
+main {
+    flex: 1;
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #f7fafc;
+    border-radius: 8px;
+    animation: fadeIn 2s ease-in-out, blink 20s infinite;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    0%, 100% {
+        background-color: rgba(7, 32, 68, 0.70);
+    }
+    50% {
+        background-color: rgba(22, 14, 112, 0.9);
+    }
+}
+
+h1 {
+    font-size: 1.5em;
+    color: #e3e6e9; 
+    font-weight: lighter;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin: 5px 0;
+    padding: 10px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+h1:hover {
+    color: #747376;
+}
+
+h2 {
+    font-size: 0.7em;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #444444; 
+    letter-spacing: 0.5px;
+    text-align: center;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    border-left: 4px solid #56cc9d;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    transition: all 0.3s ease;
+}
+
+h2:hover {
+    color: #56cc9d;
+    transform: scale(1.05);
+}

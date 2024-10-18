@@ -1,0 +1,59 @@
+footer{
+    position: fixed;
+    bottom: 0;
+    background-color: #000000;
+    text-align: center;
+    padding: 1em 0;
+    border-radius: 8px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    right: 0;
+}
+
+ul.connect-invisible {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+ul.connect-invisible li {
+    margin: 0 1em;
+}
+
+ul.connect-invisible a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 2em;
+    position: relative;
+    padding-bottom: 2px;
+    vertical-align: middle;
+    transition: all 0.3s ease; 
+}
+
+ul.connect-invisible a {
+    font-size: 1em;
+}
+
+ul.connect-invisible a:hover {
+    color: #10c5b9;
+}
+
+ul.connect-invisible a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #10c5b9; 
+    transition: width 0.3s ease; 
+}
+
+ul.connect-invisible a:hover::after {
+    width: 100%; 
+}
+
+ul.connect-invisible a span {
+    font-size: 16px;
+    vertical-align: middle;
+}
