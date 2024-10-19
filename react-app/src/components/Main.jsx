@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'; // Only import Route and Route
 import Login from './Section/Login';
 import Profile from './Section/Profile';
 import Home from './Section/Home';
+import '../assets/css/main.css';
 
 const Main = () => {
     return (

@@ -1,0 +1,48 @@
+input[type=submit] {
+    display: inline-block;
+    background-color: #4993b8;
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+
+  input[type=text] {
+    border: none;
+    color: rgb(4, 124, 252);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: auto;
+    width: 17rem;
+  }
+
+  section h1 {
+    font-size: 1.5em;
+    color: #e3e6e9;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin: 5px 0;
+    padding: 10px;
+    text-align: center;
+    transition: color 0.3s ease;
+  }
+
+  section h1:hover {
+    color: #747376;
+  }
+
+  button {
+    margin-top: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 5rem;
+    padding: 0.5rem;
+  }
