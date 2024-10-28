@@ -1,0 +1,116 @@
+$url1 = 'http://148.204.9.88:8090/newFindRecords?pass=1409&personId=-1&startTime=2024-09-01%2000:01:00&endTime=2024-10-25%2023:59:59&length=1000&model=-1&order=1&index=0';
+$url2 = 'http://148.204.148.124:8090/newFindRecords?pass=1409&personId=-1&startTime=2024-09-01%2000:01:00&endTime=2024-10-25%2023:59:59&length=1000&model=-1&order=1&index=0';
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIET</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/" title="Home">
+                    <i className="material-icons">home</i>
+                    <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/" title="Login">
+                    <i className="material-icons">login</i>
+                    <span>Iniciar Sesión</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/profile" title="Profile">
+                    <i className="material-icons">person</i>
+                    <span>Perfil</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article>
+        </article>
+        <aside>
+        </aside>
+        <section id="ZAC">
+            <h1>Registros DIET - ZAC - IPN</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>date</th>
+                    </tr>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Hora (Evento Inicial)</th>
+                        <th>Hora (Eventos intermedios)</th>
+                        <th>Hora (Evento Final)</th>
+                        <th>Horas Totales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr key={index}>
+                        <td>{entrada.name}</td>
+                        <td>{new Date(entrada.time).toLocaleTimeString()}</td>
+                        <td>{intermediosConcatenados ? intermediosConcatenados : "-"}</td>
+                        <td>{salida ? new Date(salida.time).toLocaleTimeString() : "-"}</td>
+                        <td>{hoursWorked}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="STO">
+            <h1>Registros DIET - STO - IPN</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>date</th>
+                    </tr>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Hora (Evento Inicial)</th>
+                        <th>Hora (Eventos intermedios)</th>
+                        <th>Hora (Evento Final)</th>
+                        <th>Horas Totales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr key={index}>
+                        <td>{entrada.name}</td>
+                        <td>{new Date(entrada.time).toLocaleTimeString()}</td>
+                        <td>{intermediosConcatenados ? intermediosConcatenados : "-"}</td>
+                        <td>{salida ? new Date(salida.time).toLocaleTimeString() : "-"}</td>
+                        <td>{hoursWorked}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <h2>Footer</h2>
+        <ul className="connect-invisible">
+            <li>
+                <a href="https://www.google.com" target="_blank" rel="noopener noreferrer"
+                    title="Visit my LinkedIn profile">
+                    <span>PAG 1</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.google.com" target="_blank" rel="noopener noreferrer"
+                    title="Visit my GitHub profile">
+                    <span>PAG 2</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+</body>
+
+</html>

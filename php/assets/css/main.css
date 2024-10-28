@@ -1,0 +1,51 @@
+/* Main */
+
+@media (min-width: 910px) {
+    main {
+        margin-top: 3em;
+    }
+}
+
+main {
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+    animation: fadeIn 2s ease-in-out, blink 20s infinite;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        background-color: rgba(63, 0, 25, 0.85);
+        /* Guinda más oscuro */
+    }
+
+    25% {
+        background-color: rgba(84, 0, 33, 0.85);
+        /* Guinda oscuro intermedio */
+    }
+
+    50% {
+        background-color: rgba(98, 0, 38, 0.85);
+        /* Guinda característico del IPN */
+    }
+
+    75% {
+        background-color: rgba(77, 0, 29, 0.85);
+        /* Guinda profundo */
+    }
+}

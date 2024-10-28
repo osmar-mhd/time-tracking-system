@@ -4,24 +4,24 @@ import '../assets/css/footer.css';
 function Footer() {
     return (
         <footer>
-            <h2>Connect with me:</h2>
+            <h2>Footer</h2>
             <ul className="connect-invisible"> 
                 <li>
                     <a 
-                        href="https://www.linkedin.com/in/osmar-viorato" 
+                        href="https://www.google.com" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         title="Visit my LinkedIn profile">
-                        <span>LinkedIn</span>
+                        <span>PAG 1</span>
                     </a>
                 </li>
                 <li>
                     <a 
-                        href="https://github.com/osmar-mhd" 
+                        href="https://www.google.com" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         title="Visit my GitHub profile">
-                        <span>GitHub</span>
+                        <span>PAG 2</span>
                     </a>
                 </li>
             </ul>

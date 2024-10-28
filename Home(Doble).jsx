@@ -1,10 +1,4 @@
-// Presente - Agosto,
-// Rebeles, Cristina QUintanar, Samuel Vega, Georgina GOn, Jessica Rojas, Victos, Edgar, Mara, Alan 
-// Oct - Sep - Agosto
-// Presente - Agosto,
-// Rebeles, Cristina Quintanar, Samuel Vega, Georgina Gon, Jessica Rojas, Victor, Edgar, Mara, Alan 
-// Oct - Sep - Agosto
-
+// Xampp, checadas registradas por fecha y por sede 
 import React, { useEffect, useState } from 'react';
 import CurrentDate from '../Article/CurrentDate';
 
@@ -19,7 +13,7 @@ const Home = () => {
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.data && data.data.records) {
-                        processRecords(data.data.records, setGroupedRecords); // Procesar los registros recibidos
+                        processRecords(data.data.records, setGroupedRecords);  // Procesar los registros recibidos
                     } else {
                         console.error('No se encontraron registros válidos en la respuesta.');
                     }
@@ -27,6 +21,7 @@ const Home = () => {
                 .catch(error => console.error('Error al cargar los datos:', error));
         };
 
+        // Obtener la fecha actual en formato YYYY-MM-DD
         const getCurrentDate = () => {
             const today = new Date();
             const year = today.getFullYear();
@@ -35,13 +30,11 @@ const Home = () => {
             return `${year}-${month}-${day}`;
         };
 
-        const currentDate = getCurrentDate(); // Fecha actual para el parámetro endTime
-        // Octubre: 2024-10-01
-        // Sept: 2024-09-01
-        // Agosto: 2024-08-01
+        const currentDate = getCurrentDate();  // Fecha actual para el parámetro endTime
 
-        const url1 = `http://148.204.9.88:8090/newFindRecords?pass=1409&personId=-1&startTime=2024-10-01%2000:01:00&endTime=2024-10-31%2023:59:59&length=1000&model=-1&order=1&index=0`;
-        const url2 = `http://148.204.148.124:8090/newFindRecords?pass=1409&personId=-1&startTime=2024-10-01%2000:01:00&endTime=2024-10-31%2023:59:59&length=1000&model=-1&order=1&index=0`;
+        // URLs con la fecha actual en endTime
+        const url1 = `http://148.204.9.88:8090/newFindRecords?pass=1409&personId=-1&startTime=2024-10-01%2000:01:00&endTime=${currentDate}%2023:59:59&length=1000&model=-1&order=1&index=0`;
+        const url2 = `http://148.204.148.124:8090/newFindRecords?pass=1409&personId=-1&startTime=2024-10-01%2000:01:00&endTime=${currentDate}%2023:59:59&length=1000&model=-1&order=1&index=0`;
 
         fetchData(url1, setGroupedRecords1);
         fetchData(url2, setGroupedRecords2);
@@ -119,35 +112,23 @@ const Home = () => {
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Hora (Evento Inicial)</th>
-                            <th>Hora (Eventos intermedios)</th>
-                            <th>Hora (Evento Final)</th>
+                            <th>Entrada</th>
+                            <th>Salida</th>
                             <th>Horas Totales</th>
                         </tr>
                     </thead>
                     <tbody>
                         {Object.keys(filteredRecords[date]).map((personId, index) => {
                             const personRecords = filteredRecords[date][personId];
-                            const entrada = personRecords[0]; // Primer registro
-                            const salida = personRecords.length > 1 ? personRecords[personRecords.length - 1] : null; // Último registro o null si solo hay uno
-                            const intermedios = personRecords.slice(1, -1); // Registros intermedios
-
-                            // Concatenar los eventos intermedios
-                            const intermediosConcatenados = intermedios.map(record =>
-                                new Date(record.time).toLocaleTimeString()
-                            ).join(", ");
-
-                            const hoursWorked = (personRecords.length > 1)
-                                ? calculateHoursWorked(entrada, salida)
-                                : "N/A";
+                            const entrada = personRecords[0];
+                            const salida = personRecords.length > 1 ? personRecords[1] : null;
 
                             return (
                                 <tr key={index}>
                                     <td>{entrada.name}</td>
                                     <td>{new Date(entrada.time).toLocaleTimeString()}</td>
-                                    <td>{intermediosConcatenados ? intermediosConcatenados : "-"}</td>
-                                    <td>{salida ? new Date(salida.time).toLocaleTimeString() : "-"}</td>
-                                    <td>{hoursWorked}</td>
+                                    <td>{salida ? new Date(salida.time).toLocaleTimeString() : 'No Registrada'}</td>
+                                    <td>{calculateHoursWorked(entrada, salida)}</td>
                                 </tr>
                             );
                         })}
