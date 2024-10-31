@@ -1,15 +1,14 @@
 /* HTML */
-
-html {
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', sans-serif;
 }
 
 /* Body */
-
 body {
-    background-image: linear-gradient(to right, #3b0014, #000000);
+    background-image: linear-gradient(to right, #3b0014, #000000); /* Guinda oscuro degradado */
     display: flex;
     flex-direction: column;
     min-height: 100vh;

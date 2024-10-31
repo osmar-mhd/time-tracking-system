@@ -1,62 +1,123 @@
-/* Section */
+/* Estilos de la Sección */
 
-section{
+.location-section {
+    flex: 1;
+    min-width: 45%; /* Ajustable según el espacio disponible */
+    margin: 1rem;
+    display: inline-block; /* Evita desbordes en tablas */
+    vertical-align: top;
+}
+
+/* Estilo para resaltar registros faltantes */
+.highlight-yellow {
+    background-color: rgba(255, 221, 87, 0.3); /* Amarillo claro */
+    color: #000000; /* Gris oscuro para mejor contraste */
+}
+
+section {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #6b0031; /* Guinda más suave */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+section:hover {
+    background-color: #500025; /* Un tono más oscuro para el efecto hover */
 }
 
 section table {
     margin: 1rem auto;
     border-spacing: 0.5rem;
     border-collapse: collapse;
-    max-width: 100%;
+    width: 100%;
+    max-width: 90%;
 }
 
-section th,
+section th, 
 section td {
-    border: 1px solid #8b3d3d;
-    padding: 0.2rem;
+    border: 1px solid #704444; /* Color de borde más claro */
+    padding: 0.5rem;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.15); /* Fondo claro para celdas */
+    color: #f1f1f1; /* Color de texto claro */
     word-wrap: break-word;
+    transition: background-color 0.3s ease;
 }
 
 section th {
-    background-color: rgba(24, 23, 23, 0.2);
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro para encabezado */
     font-weight: bold;
-    color: #e3e6e9;
+    color: #ffffff;
 }
 
 section tr {
-    background-color: rgba(142, 133, 133, 0.05);
-    color: #e3e6e9;
+    background-color: rgba(200, 200, 200, 0.07); /* Fondo claro en las filas */
+    color: #e1e1e1;
 }
 
+section tr:nth-child(even) {
+    background-color: rgba(200, 200, 200, 0.1); /* Fondo ligeramente distinto para pares */
+}
+
+section tr:hover {
+    background-color: rgba(44, 42, 31, 0.2); /* Efecto hover suave en amarillo */
+}
+
+/* Encabezado de la sección */
 section h1 {
-    font-size: 1.5em;
+    font-size: 1.75em;
     color: #e3e6e9;
     font-weight: lighter;
     letter-spacing: 1px;
     line-height: 1.2;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    margin: 5px 0;
-    padding: 10px;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
     text-align: center;
     transition: color 0.3s ease;
 }
 
 section h1:hover {
-    color: #747376;
+    color: #b0bec5;
 }
 
 section h2 {
-    background-color: rgba(24, 23, 23, 0.2);
+    font-size: 1.25em;
+    background-color: rgba(24, 23, 23, 0.3);
     font-weight: bold;
-    color: #e3e6e9;
-    transition: all 0.3s ease;
+    color: #cebbbb;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 section h2:hover {
-    color: #56cc9d;
-    transform: scale(1.05);
+    color: #8baaaa;
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+    .location-section {
+        min-width: 100%;
+        margin: 0.5rem;
+    }
+
+    section table {
+        max-width: 100%;
+    }
+
+    section h1 {
+        font-size: 1.5em;
+    }
+
+    section h2 {
+        font-size: 1.15em;
+    }
 }
