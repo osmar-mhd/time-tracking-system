@@ -1,194 +1,143 @@
-// Presente - Agosto,
-// Rebeles, Cristina QUintanar, Samuel Vega, Georgina GOn, Jessica Rojas, Victos, Edgar, Mara, Alan 
-// Oct - Sep - Agosto
-// Presente - Agosto,
-// Rebeles, Cristina Quintanar, Samuel Vega, Georgina Gon, Jessica Rojas, Victor, Edgar, Mara, Alan 
-// Oct - Sep - Agosto
-
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CurrentDate from '../Article/CurrentDate';
 
-const Home = () => {
+const RecordViewer = () => {
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [nameFilter, setNameFilter] = useState('');
     const [groupedRecords1, setGroupedRecords1] = useState({});
     const [groupedRecords2, setGroupedRecords2] = useState({});
-    const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        const fetchData = (url, setGroupedRecords) => {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.data && data.data.records) {
-                        processRecords(data.data.records, setGroupedRecords); // Procesar los registros recibidos
-                    } else {
-                        console.error('No se encontraron registros válidos en la respuesta.');
-                    }
-                })
-                .catch(error => console.error('Error al cargar los datos:', error));
-        };
+    // Obtener fecha actual para establecer fechas predeterminadas
+    const getCurrentDate = () => new Date().toISOString().split('T')[0];
 
-        const getCurrentDate = () => {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        };
-
-        const currentDate = getCurrentDate(); // Fecha actual para el parámetro endTime
-        // Octubre: 2024-10-01
-        // Sept: 2024-09-01
-        // Agosto: 2024-08-01
-
-        const url1 = `http://148.204.9.88:8090/newFindRecords?pass=1409&personId=-1&startTime=2024-10-01%2000:01:00&endTime=2024-10-31%2023:59:59&length=1000&model=-1&order=1&index=0`;
-        const url2 = `http://148.204.148.124:8090/newFindRecords?pass=1409&personId=-1&startTime=2024-10-01%2000:01:00&endTime=2024-10-31%2023:59:59&length=1000&model=-1&order=1&index=0`;
-
-        fetchData(url1, setGroupedRecords1);
-        fetchData(url2, setGroupedRecords2);
-
-        const interval = setInterval(() => {
-            fetchData(url1, setGroupedRecords1);
-            fetchData(url2, setGroupedRecords2);
-        }, 60000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const processRecords = (records, setGroupedRecords) => {
-        const grouped = records.reduce((acc, record) => {
-            const recordDate = new Date(record.time).toLocaleDateString();
-            const personId = record.personId;
-
-            if (!acc[recordDate]) {
-                acc[recordDate] = {};
-            }
-
-            if (!acc[recordDate][personId]) {
-                acc[recordDate][personId] = [];
-            }
-
-            acc[recordDate][personId].push(record);
-            return acc;
-        }, {});
-
-        for (let date in grouped) {
-            for (let person in grouped[date]) {
-                grouped[date][person].sort((a, b) => new Date(a.time) - new Date(b.time));
-            }
+    // Función para obtener datos de la API
+    const fetchData = async (url) => {
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.data.records || [];
+        } catch (error) {
+            console.error("Error al obtener datos:", error);
+            return [];
         }
-
-        setGroupedRecords(grouped);
     };
 
-    const filterRecords = (groupedRecords) => {
-        return Object.keys(groupedRecords).reduce((filtered, date) => {
-            const filteredByDate = Object.keys(groupedRecords[date]).reduce((personAcc, personId) => {
-                const personRecords = groupedRecords[date][personId];
-                const personName = personRecords[0].name.toLowerCase();
-                
-                if (personName.includes(searchTerm.toLowerCase())) {
-                    if (!personAcc[date]) {
-                        personAcc[date] = {};
-                    }
-                    personAcc[date][personId] = personRecords;
-                }
-                return personAcc;
-            }, {});
+    // Función para procesar registros
+    const processRecords = (records, filter) => {
+        const grouped = {};
+        records.forEach(record => {
+            const { personId, name, path, time } = record;
+            if (filter && !name.toLowerCase().includes(filter.toLowerCase())) return;
 
-            return { ...filtered, ...filteredByDate };
-        }, {});
+            const date = new Date(time / 1000).toISOString().split('T')[0];
+            if (!grouped[date]) grouped[date] = {};
+            if (!grouped[date][personId]) grouped[date][personId] = { name, path, records: [] };
+
+            grouped[date][personId].records.push({
+                time: new Date(time / 1000).toLocaleTimeString('es-MX', { timeZone: 'America/Mexico_City' }),
+                timestamp: time
+            });
+        });
+        return grouped;
     };
 
-    const calculateHoursWorked = (entrada, salida) => {
-        if (!salida) return 'N/A';
+    // Obtener y procesar datos al enviar el formulario
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        const sDate = startDate || getCurrentDate();
+        const eDate = endDate || getCurrentDate();
 
-        const entradaTime = new Date(entrada.time);
-        const salidaTime = new Date(salida.time);
-        const differenceInMilliseconds = salidaTime - entradaTime;
-        const hoursWorked = Math.floor(differenceInMilliseconds / 1000 / 60 / 60);
-        const minutesWorked = Math.floor((differenceInMilliseconds / 1000 / 60) % 60);
+        const url1 = `http://148.204.9.88:8090/newFindRecords?pass=1409&personId=-1&startTime=${sDate} 00:01:00&endTime=${eDate} 23:59:59&length=1000&model=-1&order=1&index=0`;
+        const url2 = `http://148.204.148.124:8090/newFindRecords?pass=1409&personId=-1&startTime=${sDate} 00:01:00&endTime=${eDate} 23:59:59&length=1000&model=-1&order=1&index=0`;
 
-        return `${hoursWorked}h ${minutesWorked}m`;
+        const records1 = await fetchData(url1);
+        const records2 = await fetchData(url2);
+
+        setGroupedRecords1(processRecords(records1, nameFilter));
+        setGroupedRecords2(processRecords(records2, nameFilter));
     };
-
-    const renderTable = (filteredRecords) => (
-        Object.keys(filteredRecords).map((date, index) => (
-            <div key={index}>
-                <h2>{date}</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Hora (Evento Inicial)</th>
-                            <th>Hora (Eventos intermedios)</th>
-                            <th>Hora (Evento Final)</th>
-                            <th>Horas Totales</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Object.keys(filteredRecords[date]).map((personId, index) => {
-                            const personRecords = filteredRecords[date][personId];
-                            const entrada = personRecords[0]; // Primer registro
-                            const salida = personRecords.length > 1 ? personRecords[personRecords.length - 1] : null; // Último registro o null si solo hay uno
-                            const intermedios = personRecords.slice(1, -1); // Registros intermedios
-
-                            // Concatenar los eventos intermedios
-                            const intermediosConcatenados = intermedios.map(record =>
-                                new Date(record.time).toLocaleTimeString()
-                            ).join(", ");
-
-                            const hoursWorked = (personRecords.length > 1)
-                                ? calculateHoursWorked(entrada, salida)
-                                : "N/A";
-
-                            return (
-                                <tr key={index}>
-                                    <td>{entrada.name}</td>
-                                    <td>{new Date(entrada.time).toLocaleTimeString()}</td>
-                                    <td>{intermediosConcatenados ? intermediosConcatenados : "-"}</td>
-                                    <td>{salida ? new Date(salida.time).toLocaleTimeString() : "-"}</td>
-                                    <td>{hoursWorked}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </div>
-        ))
-    );
 
     return (
         <div>
-            <aside>
+            <header>
                 <CurrentDate />
-            </aside>
-
-            <div>
-                <label htmlFor="search">Buscar por nombre: </label>
-                <input
-                    type="text"
-                    id="search"
-                    placeholder="Buscar por nombre"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
-
-            <h1>Registros DIET - ZAC - IPN</h1>
-            {Object.keys(filterRecords(groupedRecords1)).length > 0 ? (
-                renderTable(filterRecords(groupedRecords1))
-            ) : (
-                <p>No se encontraron registros para la API 1.</p>
-            )}
-
-            <h1>Registros DIET - STO - IPN</h1>
-            {Object.keys(filterRecords(groupedRecords2)).length > 0 ? (
-                renderTable(filterRecords(groupedRecords2))
-            ) : (
-                <p>No se encontraron registros para la API 2.</p>
-            )}
+                <form onSubmit={handleSearch}>
+                    <label>
+                        Buscar por nombre:
+                        <input type="text" value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} />
+                    </label>
+                    <label>
+                        Fecha de inicio:
+                        <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                    </label>
+                    <label>
+                        Fecha de término:
+                        <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+                    </label>
+                    <button type="submit">Buscar</button>
+                </form>
+            </header>
+            <main>
+                <RenderTable groupedRecords={groupedRecords1} location="Zacatenco" />
+                <RenderTable groupedRecords={groupedRecords2} location="Santo Tomás" />
+            </main>
         </div>
     );
-}
+};
 
-export default Home;
+// Componente para renderizar la tabla
+const RenderTable = ({ groupedRecords, location }) => {
+    const calculateHoursWorked = (records) => {
+        if (records.length < 2) return "N/A";
+        const entryTime = new Date(records[0].timestamp / 1000).getTime();
+        const exitTime = new Date(records[records.length - 1].timestamp / 1000).getTime();
+        const diff = exitTime - entryTime;
+        const hours = Math.floor(diff / 3600 / 1000);
+        const minutes = Math.floor((diff % 3600) / 60000);
+        return `${hours} hr ${minutes} min`;
+    };
+
+    return (
+        <section>
+            <h2>Registros - {location}</h2>
+            {Object.keys(groupedRecords).length === 0 ? (
+                <p>No se encontraron registros para {location}.</p>
+            ) : (
+                Object.entries(groupedRecords).map(([date, persons]) => (
+                    <div key={date}>
+                        <h3>{new Date(date).toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Evento Inicial</th>
+                                    <th>Evento Final</th>
+                                    <th>Horas Totales</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {Object.values(persons).map(({ name, records, path }, idx) => {
+                                    const entry = records[0]?.time || '-';
+                                    const exit = records[records.length - 1]?.time || '-';
+                                    const hoursWorked = calculateHoursWorked(records);
+
+                                    return (
+                                        <tr key={idx}>
+                                            <td>{name}</td>
+                                            <td>{entry}</td>
+                                            <td>{exit}</td>
+                                            <td>{hoursWorked}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                ))
+            )}
+        </section>
+    );
+};
+
+export default RecordViewer;

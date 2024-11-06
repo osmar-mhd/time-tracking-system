@@ -42,6 +42,7 @@ section table {
 section th, 
 section td {
     border: 1px solid #704444; /* Color de borde más claro */
+    font-size: 0.8em;
     padding: 0.5rem;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.15); /* Fondo claro para celdas */

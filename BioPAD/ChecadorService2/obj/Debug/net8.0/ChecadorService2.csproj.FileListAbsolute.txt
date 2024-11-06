@@ -1,0 +1,15 @@
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/bin/Debug/net8.0/ChecadorService2
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/bin/Debug/net8.0/ChecadorService2.deps.json
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/bin/Debug/net8.0/ChecadorService2.runtimeconfig.json
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/bin/Debug/net8.0/ChecadorService2.dll
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/bin/Debug/net8.0/ChecadorService2.pdb
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/obj/Debug/net8.0/ChecadorService2.GeneratedMSBuildEditorConfig.editorconfig
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/obj/Debug/net8.0/ChecadorService2.AssemblyInfoInputs.cache
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/obj/Debug/net8.0/ChecadorService2.AssemblyInfo.cs
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/obj/Debug/net8.0/ChecadorService2.csproj.CoreCompileInputs.cache
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/obj/Debug/net8.0/ChecadorService2.dll
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/obj/Debug/net8.0/refint/ChecadorService2.dll
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/obj/Debug/net8.0/ChecadorService2.pdb
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/obj/Debug/net8.0/ChecadorService2.genruntimeconfig.cache
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/obj/Debug/net8.0/ref/ChecadorService2.dll
+/home/mxn/Documents/Servicio Social/ChecadorBioPAD/ChecadorService2/obj/Debug/net8.0/ChecadorService2.csproj.AssemblyReference.cache
